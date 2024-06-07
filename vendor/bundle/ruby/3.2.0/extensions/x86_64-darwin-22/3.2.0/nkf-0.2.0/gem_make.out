@@ -1,0 +1,20 @@
+current directory: /Users/bthn/Desktop/ReactNativeWorks/reactAppIdentify/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+/usr/local/opt/ruby/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/bthn/Desktop/ReactNativeWorks/reactAppIdentify/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240607-86274-1h8dy3 sitelibdir\=./.gem.20240607-86274-1h8dy3 clean
+
+current directory: /Users/bthn/Desktop/ReactNativeWorks/reactAppIdentify/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240607-86274-1h8dy3 sitelibdir\=./.gem.20240607-86274-1h8dy3
+compiling nkf.c
+linking shared-object nkf.bundle
+ld: warning: -multiply_defined is obsolete
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/bthn/Desktop/ReactNativeWorks/reactAppIdentify/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240607-86274-1h8dy3 sitelibdir\=./.gem.20240607-86274-1h8dy3 install
+/usr/bin/install -c -m 0755 nkf.bundle ./.gem.20240607-86274-1h8dy3
+
+current directory: /Users/bthn/Desktop/ReactNativeWorks/reactAppIdentify/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240607-86274-1h8dy3 sitelibdir\=./.gem.20240607-86274-1h8dy3 clean
