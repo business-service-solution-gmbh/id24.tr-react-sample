@@ -19,7 +19,7 @@ buildscript {
                 name = "GitHubPackages"
                 credentials {
                     username = "bssserviceacc"
-                    password = "***************"
+                    password = "xxxxxxxxx"
                 }
             }
         }

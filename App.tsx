@@ -1,21 +1,128 @@
-import React from 'react';
-import {StyleSheet, View, Button} from 'react-native';
-import {startIdentifySdk} from './src/utils/identifyUtils';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
-const App = () => {
-  const startSdk = () =>
-    startIdentifySdk({
-      identificationId: 'df00e001be04b01d8916c3f5b20591781f827b18',
-    });
+import React from 'react';
+import type {PropsWithChildren} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+  Button,
+} from 'react-native';
+
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+
+import { NativeModules } from 'react-native';
+const { IdentifyModule } = NativeModules;
+
+type SectionProps = PropsWithChildren<{
+  title: string;
+}>;
+
+function Section({children, title}: SectionProps): React.JSX.Element {
+  const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
-      <Button onPress={startSdk} title="open identify" />
+      <Text
+        style={[
+          styles.sectionTitle,
+          {
+            color: isDarkMode ? Colors.white : Colors.black,
+          },
+        ]}>
+        {title}
+      </Text>
+      <Text
+        style={[
+          styles.sectionDescription,
+          {
+            color: isDarkMode ? Colors.light : Colors.dark,
+          },
+        ]}>
+        {children}
+      </Text>
     </View>
   );
-};
+}
+
+function App(): React.JSX.Element {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const handlePress = async () => {
+      console.log('Button pressed!');
+
+      try {
+          const apiUrl = "api";
+          const identId = "ident_id";
+          const language = "tr";
+
+          const result = await IdentifyModule.startIdentification(apiUrl, identId, language);
+          console.log(result);
+        } catch (e) {
+          console.error(e);
+        }
+
+    };
+
+  return (
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={backgroundStyle}>
+        <Header />
+        <View
+          style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+          }}>
+          <View style={styles.container}>
+            <Button
+              title="Open Identification"
+              onPress={handlePress}
+            />
+          </View>
+          <Section title="See Your Changes">
+            <ReloadInstructions />
+          </Section>
+          <Section title="Debug">
+            <DebugInstructions />
+          </Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
+          <LearnMoreLinks />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {flex: 1, justifyContent: 'center', padding: '20%'},
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
