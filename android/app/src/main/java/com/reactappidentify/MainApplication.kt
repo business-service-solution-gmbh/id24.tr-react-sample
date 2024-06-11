@@ -11,6 +11,11 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 
+import com.identify.sdk.IdentifySdk
+import com.identify.sdk.IdentityOptions
+import com.identify.sdk.repository.model.enums.IdentifyModuleTypes
+import com.identify.sdk.repository.model.mrz.DocType
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
