@@ -5,8 +5,8 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 
-import androidx.lifecycle.LifecycleOwner
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.identify.sdk.IdentifySdk
 import com.identify.sdk.IdentityOptions
 import com.identify.sdk.repository.model.enums.IdentifyModuleTypes
@@ -53,18 +53,23 @@ class IdentifyModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             val options = configure()
 //            val activity = currentActivity as AppCompatActivity
 
-            val lifecycle: Lifecycle by lazy {
-                ((this.reactContext as ReactContext).currentActivity as AppCompatActivity).lifecycle
+            val activity = currentActivity
+
+            if (activity != null && activity is AppCompatActivity) {
+                val identifyObject = IdentifySdk.Builder()
+                    .api(apiUrl)
+                    .lifeCycle(activity.lifecycle)
+                    .options(options)
+                    .build()
+
+                Log.d("IdentifyModule", "Current Activity: $activity")
+                Log.d("IdentifyModule", "Starting Identification with apiUrl: $apiUrl, sessionId: $sessionId, language: $language")
+
+                identifyObject.startIdentification(currentActivity!!, sessionId, language)
+                promise.resolve("Identification started successfully")
+            } else {
+                promise.reject("Activity error", "Current activity is null or not an AppCompatActivity")
             }
-
-            val identifyObject = IdentifySdk.Builder()
-                .api(apiUrl)
-                .lifeCycle(activity.lifecycle)
-                .options(options)
-                .build()
-
-            identifyObject.startIdentification(currentActivity!!, sessionId, language)
-            promise.resolve("Identification started successfully")
         } catch (e: Exception) {
             promise.reject("Identification error", e)
         }

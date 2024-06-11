@@ -2,7 +2,6 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 apply plugin: "kotlin-android"
-
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -110,7 +109,8 @@ dependencies {
     implementation("com.facebook.react:react-android")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0") //### add this line 
     implementation 'com.google.code.gson:gson:2.10.1' //### add this line 
-    implementation project(path: ':design') //### add this line 
+    implementation project(path: ':design') //### add this line
+
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
