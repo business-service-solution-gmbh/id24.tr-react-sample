@@ -26,6 +26,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import { NativeModules } from 'react-native';
+const { IdentifyModule } = NativeModules;
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -63,9 +66,20 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const handlePress = () => {
+  const handlePress = async () => {
       console.log('Button pressed!');
-      // Add your logic here
+
+      try {
+          const apiUrl = "https://api.id24tr-qa.bssgmbh.works";
+          const sessionId = "df00e001be04b01d8916c3f5b20591781f827b18";
+          const language = "tr";
+
+          const result = await IdentifyModule.startIdentification(apiUrl, sessionId, language);
+          console.log(result);
+        } catch (e) {
+          console.error(e);
+        }
+
     };
 
   return (
