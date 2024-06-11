@@ -70,11 +70,11 @@ function App(): React.JSX.Element {
       console.log('Button pressed!');
 
       try {
-          const apiUrl = "https://api.id24tr-qa.bssgmbh.works";
-          const sessionId = "f6d6442075d12796b7d7027da84c2ede76187db7";
+          const apiUrl = "api";
+          const identId = "ident_id";
           const language = "tr";
 
-          const result = await IdentifyModule.startIdentification(apiUrl, sessionId, language);
+          const result = await IdentifyModule.startIdentification(apiUrl, identId, language);
           console.log(result);
         } catch (e) {
           console.error(e);

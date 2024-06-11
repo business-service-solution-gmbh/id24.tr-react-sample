@@ -21,20 +21,20 @@ class IdentifyModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
 
     fun configure(): IdentityOptions {
         return IdentityOptions.Builder()
-            .setIdentityType(
-                listOf(
-                    IdentifyModuleTypes.PREPARE,
-                    IdentifyModuleTypes.SPEECH_TEST,
-                    IdentifyModuleTypes.IDENTIFICATION_INFORMATION_WITH_CARD_PHOTO,
-                    IdentifyModuleTypes.IDENTIFICATION_INFORMATION_WITH_NFC,
-                    IdentifyModuleTypes.TAKE_SELFIE,
-                    IdentifyModuleTypes.VALIDATE_ADDRESS,
-                    IdentifyModuleTypes.LIVENESS_TEST,
-                    IdentifyModuleTypes.VIDEO_RECORD,
-                    IdentifyModuleTypes.SIGNATURE,
-                    IdentifyModuleTypes.AGENT_CALL
-                )
-            )
+//            .setIdentityType(
+//                listOf(
+//                    IdentifyModuleTypes.PREPARE,
+//                    IdentifyModuleTypes.SPEECH_TEST,
+//                    IdentifyModuleTypes.IDENTIFICATION_INFORMATION_WITH_CARD_PHOTO,
+//                    IdentifyModuleTypes.IDENTIFICATION_INFORMATION_WITH_NFC,
+//                    IdentifyModuleTypes.TAKE_SELFIE,
+//                    IdentifyModuleTypes.VALIDATE_ADDRESS,
+//                    IdentifyModuleTypes.LIVENESS_TEST,
+//                    IdentifyModuleTypes.VIDEO_RECORD,
+//                    IdentifyModuleTypes.SIGNATURE,
+//                    IdentifyModuleTypes.AGENT_CALL
+//                )
+//            )
             .setNfcExceptionCount(3)
             .setCallConnectionTimeOut(20000)
             .setOpenIntroPage(false)
@@ -49,10 +49,9 @@ class IdentifyModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     }
 
     @ReactMethod
-    fun startIdentification(apiUrl: String, sessionId: String, language: String, promise: Promise) {
+    fun startIdentification(apiUrl: String, identId: String, language: String, promise: Promise) {
         try {
             val options = configure()
-//            val activity = currentActivity as AppCompatActivity
 
             val activity = currentActivity
 
@@ -63,10 +62,7 @@ class IdentifyModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
                     .options(options)
                     .build()
 
-                Log.d("IdentifyModule", "Current Activity: $activity")
-                Log.d("IdentifyModule", "Starting Identification with apiUrl: $apiUrl, sessionId: $sessionId, language: $language")
-
-                identifyObject.startIdentification(currentActivity!!, sessionId, language)
+                identifyObject.startIdentification(currentActivity!!, identId, language)
                 promise.resolve("Identification started successfully")
             } else {
                 promise.reject("Activity error", "Current activity is null or not an AppCompatActivity")
