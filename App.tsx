@@ -71,7 +71,7 @@ function App(): React.JSX.Element {
 
       try {
           const apiUrl = "https://api.id24tr-qa.bssgmbh.works";
-          const sessionId = "e23911b8e0a190cd0ba95d8d206808e93c9bdb89";
+          const sessionId = "f6d6442075d12796b7d7027da84c2ede76187db7";
           const language = "tr";
 
           const result = await IdentifyModule.startIdentification(apiUrl, sessionId, language);
