@@ -1,0 +1,11 @@
+{
+    "baseApiUrl": "https://api.id24tr-qa.bssgmbh.works",
+    "baseSocketUrl": "wss://ws.id24tr-qa.bssgmbh.works",
+    "socketPort": "8888",
+    "stunUrl": "stun:stun.l.google.com",
+    "stunPort": "19302",
+    "turnUrl": "turn:18.156.205.32",
+    "turnPort": "3478",
+    "turnUsername": "test",
+    "turnPassword": "test"
+}
