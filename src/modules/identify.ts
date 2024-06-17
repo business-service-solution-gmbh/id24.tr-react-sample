@@ -69,14 +69,6 @@ export class IdentifySdk {
     identificationId: string;
     language: string;
     baseApiUrl: string;
-    baseSocketUrl: string;
-    socketPort: string;
-    stunUrl: string;
-    stunPort: string;
-    turnUrl: string;
-    turnPort: string;
-    turnUsername: string;
-    turnPassword: string;
     allProcessFinished?: (data?: string) => void;
     callProcessFinished?: (data?: string) => void;
     nfcProcessFinished?: (data?: string) => void;
@@ -203,15 +195,7 @@ export class IdentifySdk {
     return IdentifyReactNative.startSdk({
       identificationId: args.identificationId,
       language: args.language,
-      baseApiUrl: args.baseApiUrl,
-      baseSocketUrl: args.baseSocketUrl,
-      socketPort: args.socketPort,
-      stunUrl: args.stunUrl,
-      stunPort: args.stunPort,
-      turnUrl: args.turnUrl,
-      turnPort: args.turnPort,
-      turnUsername: args.turnUsername,
-      turnPassword: args.turnPassword,
+      baseApiUrl: args.baseApiUrl
     });
   }
 

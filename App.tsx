@@ -71,10 +71,11 @@ function App(): React.JSX.Element {
 
       try {
           const apiUrl = "api";
-          const identId = "ident_id";
+          const identId = "identId";
           const language = "tr";
-
+          
           const result = await IdentifyModule.startIdentification(apiUrl, identId, language);
+          
           console.log(result);
         } catch (e) {
           console.error(e);
@@ -96,7 +97,7 @@ function App(): React.JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <View style={styles.container}>
+          <View style={styles.sectionContainer}>
             <Button
               title="Open Identification"
               onPress={handlePress}
