@@ -135,3 +135,4 @@ build/
 .gradle
 local.properties
 *.iml
+ios/Pods/*
