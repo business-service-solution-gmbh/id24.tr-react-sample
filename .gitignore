@@ -136,3 +136,6 @@ build/
 local.properties
 *.iml
 ios/Pods/*
+
+## User settings
+xcuserdata/
