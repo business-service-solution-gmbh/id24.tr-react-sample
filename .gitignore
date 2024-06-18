@@ -139,3 +139,5 @@ ios/Pods/*
 
 ## User settings
 xcuserdata/
+
+.DS_Store
