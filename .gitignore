@@ -140,4 +140,7 @@ ios/Pods/*
 ## User settings
 xcuserdata/
 
+## ignore sdk
+IdentifySDK.xcframework
+
 .DS_Store
