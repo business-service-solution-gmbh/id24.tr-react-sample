@@ -15,10 +15,11 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 - in terminal go to ios folder and run `pod install`
 - put `IdentifySDK.xcframework` into /ios folder
 - open `reactAppIdentify.xcworkspace` in XCode
-- go to `reactAppIdentify` target update `Team` and `Bundle Identifier` in `Signing and Capabilities`
-- in the same target go to general and in Frameworks, Libraries and Embedded Content find `IdentifySDK.xcframework` 
+- drag&drop `IdentifySDK.xcframework` to reactAppIdentify/iosApp
+- go to `reactAppIdentify` target then update `Team` and `Bundle Identifier` in `Signing and Capabilities`
+- in the same target go to General and in Frameworks, Libraries and Embedded Content find `IdentifySDK.xcframework` 
   and select `Embed and Sign` option
 
 # run iOS
-  npm start
-  in another terminal: npm run android
+- in root folder run `npm start`
+- open another terminal. run `npm run ios`
