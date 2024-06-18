@@ -33,6 +33,11 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
     
     var idLang: IDLang? = .TR
     var useSSLPinning = false
+  
+    // for react
+    var cominId: String? = ""
+    var cominUrl: String? = ""
+    var cominLang: String? = ""
     
     @IBOutlet weak var serverSelector: IdentifyButton!
     override func viewDidLoad() {
@@ -62,14 +67,16 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
             self.jbView.isHidden = false
             print("cihazda jb tespit edildi, bu durumu yönetebilirsiniz.")
         }
-//        self.selectedServer.apiUrl = "https://api.identify.com.tr/"
-        self.selectedServer.turnUrl = "turn:185.32.14.165:3478"
-        self.selectedServer.stunUrl = "stun:185.32.14.165:3478"
-        self.selectedServer.turnUser = "itrturn"
-        self.selectedServer.turnPassword = "itrpass"
         
-        self.selectedServer.apiUrl = "https://v2api.identify.com.tr"
-        self.selectedServer.websocketUrl = "wss://v2ws.identify.com.tr"
+      self.selectedServer.apiUrl = self.cominUrl ?? ""
+      if self.cominLang == "tr" {
+          self.idLang = .TR
+          self.manager.setSDKLang(lang: .tr)
+      } else if self.cominLang == "en" {
+          self.manager.setSDKLang(lang: .eng)
+      } else if self.cominLang == "de" {
+          self.manager.setSDKLang(lang: .de)
+      }
     }
     
     private func setupUI() {
@@ -106,6 +113,7 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
         self.signLangBtn.populate()
         self.newLivenessBtn.populate()
         self.sslPinningBtn.populate()
+        self.identIdArea.text = self.cominId
         
         self.setupOptionButtons()
     }
@@ -171,19 +179,6 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
     
     private func connectSDK() {
         self.view.endEditing(true)
-        if identIdArea.text == "xxx" {
-            self.identIdArea.text = "eaebe29505c8c27ab68a626f8c0a8bb61e61d3f9"
-        } else if identIdArea.text == "x" {
-            self.identIdArea.text = "b6c2e970e9f380c698ee1e6056dfdd234be7be17"
-        } else if identIdArea.text == "y" {
-            self.identIdArea.text = "7fc133f53bb05aa7547b671db589dff994c62fcc"
-        } else if identIdArea.text == "oo" {
-            self.identIdArea.text = "87b9dc12bc003f80ab47c8d80d500349e6a31c5a"
-        } else if identIdArea.text == "tahsin" {
-            self.identIdArea.text = "70a156b19356e600c7ccce3bb3061886091c39b7"
-        } else if identIdArea.text == "h" {
-            self.identIdArea.text = "600d7388a82294f712147672ef56965c77d92f41"
-        }
         
         self.showLoader()
         
@@ -328,12 +323,14 @@ extension SDKIdentifyLoginViewController { // Dil seçme & değiştirme işlemle
 
         let firstAction: UIAlertAction = UIAlertAction(title: "Türkçe", style: .default) { action -> Void in
             self.idLang = .TR
-            self.showNetworkOptions()
+//            self.showNetworkOptions()
+            self.connectSDK()
         }
         
         let secondAct: UIAlertAction = UIAlertAction(title: "Diğer", style: .default) { action -> Void in
             self.idLang = .OTHER
-            self.showNetworkOptions()
+//            self.showNetworkOptions()
+            self.connectSDK()
         }
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }

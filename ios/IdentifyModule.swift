@@ -33,6 +33,9 @@ class IdentifyModule: NSObject, RCTBridgeModule{
       }
 
       let firstVC = SDKIdentifyLoginViewController()
+      firstVC.cominId = identId
+      firstVC.cominUrl = apiUrl
+      firstVC.cominLang = language
       let firstNC = UINavigationController(rootViewController: firstVC)
       UINavigationBar.appearance().tintColor = .white
       appDelegate.window.rootViewController = firstNC
