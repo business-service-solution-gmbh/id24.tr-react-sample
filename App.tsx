@@ -1,140 +1,136 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Button,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { NativeModules } from 'react-native';
 const { IdentifyModule } = NativeModules;
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const App = () => {
+  const [identId, setIdentId] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('tr');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const languages = [
+    { label: 'Türkçe', value: 'tr' },
+    { label: 'İngilizce', value: 'en' },
+    { label: 'Almanca', value: 'de' },
+    { label: 'Rusça', value: 'ru' },
+    { label: 'Azerice', value: 'az' },
+  ];
 
   const handlePress = async () => {
-      console.log('Button pressed!');
-
-      try {
-          const apiUrl = "api";
-          const identId = "identId";
-          const language = "tr";
-          
-          const result = await IdentifyModule.startIdentification(apiUrl, identId, language);
-          
-          console.log(result);
-        } catch (e) {
-          console.error(e);
-        }
-
-    };
+    const apiUrl = "https://api.id24tr-qa.bssgmbh.works";
+    const currentId = identId;
+    try {
+      const result = await IdentifyModule.startIdentification(apiUrl, currentId, selectedLanguage);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <View style={styles.container}>
+      <Image source={require('./identifyLogo.png')} style={styles.logo} resizeMode="contain" />
+      <TextInput
+        style={styles.input}
+        placeholder="identId"
+        placeholderTextColor="#bbb"
+        value={identId}
+        onChangeText={setIdentId}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <View style={styles.sectionContainer}>
-            <Button
-              title="Open Identification"
-              onPress={handlePress}
-            />
-          </View>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+      <TouchableOpacity style={styles.dropdownButton} onPress={() => setDropdownOpen(!dropdownOpen)}>
+        <Text style={styles.dropdownButtonText}>
+          {languages.find(lang => lang.value === selectedLanguage)?.label || 'Dil Seçiniz'}
+        </Text>
+      </TouchableOpacity>
+      {dropdownOpen && (
+        <View style={styles.dropdown}>
+          <Text style={styles.dropdownHeader}>Lütfen SDK Dilini Seçiniz</Text>
+          {languages.map((language) => (
+            <TouchableOpacity
+              key={language.value}
+              style={styles.dropdownItem}
+              onPress={() => {
+                setSelectedLanguage(language.value);
+                setDropdownOpen(false);
+              }}
+            >
+              <Text style={styles.dropdownItemText}>{language.label}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      )}
+      <View style={styles.buttonContainer}>
+        <Button title="Bağlan" onPress={handlePress} />
+      </View>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#003366',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  logo: {
+    width: '50%',
+    height: 100,
+    marginBottom: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: '80%',
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
   },
-  highlight: {
-    fontWeight: '700',
+  dropdownButton: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: '80%',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    marginBottom: 20,
+  },
+  dropdownButtonText: {
+    fontSize: 16,
+    color: 'black',
+  },
+  dropdown: {
+    width: '80%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  dropdownHeader: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  dropdownItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    width: '100%',
+    alignItems: 'center',
+  },
+  dropdownItemText: {
+    fontSize: 16,
+    color: 'black',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '80%',
   },
 });
 

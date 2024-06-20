@@ -77,6 +77,8 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
       } else if self.cominLang == "de" {
           self.manager.setSDKLang(lang: .de)
       }
+      
+      forceLoginForReact()
     }
     
     private func setupUI() {
@@ -229,6 +231,11 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
                 }
             }
         }
+    }
+  
+    private func forceLoginForReact() {
+      self.idLang = .TR
+      self.connectSDK()
     }
     
     private func loginSystem() {
