@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TextInput, Button, Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import { NativeModules } from 'react-native';
 const { IdentifyModule } = NativeModules;
 
@@ -27,43 +27,48 @@ const App = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <Image source={require('./identifyLogo.png')} style={styles.logo} resizeMode="contain" />
-        <TextInput
-          style={styles.input}
-          placeholder="identId"
-          placeholderTextColor="#bbb"
-          value={identId}
-          onChangeText={setIdentId}
-        />
-        <TouchableOpacity style={styles.dropdownButton} onPress={() => setDropdownOpen(!dropdownOpen)}>
-          <Text style={styles.dropdownButtonText}>
-            {languages.find(lang => lang.value === selectedLanguage)?.label || 'Dil Seçiniz'}
-          </Text>
-        </TouchableOpacity>
-        {dropdownOpen && (
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownHeader}>Lütfen SDK Dilini Seçiniz</Text>
-            {languages.map((language) => (
-              <TouchableOpacity
-                key={language.value}
-                style={styles.dropdownItem}
-                onPress={() => {
-                  setSelectedLanguage(language.value);
-                  setDropdownOpen(false);
-                }}
-              >
-                <Text style={styles.dropdownItemText}>{language.label}</Text>
-              </TouchableOpacity>
-            ))}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <Image source={require('./identifyLogo.png')} style={styles.logo} resizeMode="contain" />
+          <TextInput
+            style={styles.input}
+            placeholder="identId"
+            placeholderTextColor="#bbb"
+            value={identId}
+            onChangeText={setIdentId}
+          />
+          <TouchableOpacity style={styles.dropdownButton} onPress={() => setDropdownOpen(!dropdownOpen)}>
+            <Text style={styles.dropdownButtonText}>
+              {languages.find(lang => lang.value === selectedLanguage)?.label || 'Dil Seçiniz'}
+            </Text>
+          </TouchableOpacity>
+          {dropdownOpen && (
+            <View style={styles.dropdown}>
+              <Text style={styles.dropdownHeader}>Lütfen SDK Dilini Seçiniz</Text>
+              {languages.map((language) => (
+                <TouchableOpacity
+                  key={language.value}
+                  style={styles.dropdownItem}
+                  onPress={() => {
+                    setSelectedLanguage(language.value);
+                    setDropdownOpen(false);
+                  }}
+                >
+                  <Text style={styles.dropdownItemText}>{language.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+          <View style={styles.buttonContainer}>
+            <Button title="Bağlan" onPress={handlePress} />
           </View>
-        )}
-        <View style={styles.buttonContainer}>
-          <Button title="Bağlan" onPress={handlePress} />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+     </KeyboardAvoidingView>
   );
 };
 
