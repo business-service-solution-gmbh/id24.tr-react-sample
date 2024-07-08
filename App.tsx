@@ -48,7 +48,7 @@ const App = () => {
           </TouchableOpacity>
           {dropdownOpen && (
             <View style={styles.dropdown}>
-              <Text style={styles.dropdownHeader}>Lütfen SDK Dilini Seçiniz</Text>
+              <Text style={styles.dropdownHeader}>Choose SDK language</Text>
               {languages.map((language) => (
                 <TouchableOpacity
                   key={language.value}
@@ -64,7 +64,7 @@ const App = () => {
             </View>
           )}
           <View style={styles.buttonContainer}>
-            <Button title="Bağlan" onPress={handlePress} />
+            <Button title="Connect" onPress={handlePress} />
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
