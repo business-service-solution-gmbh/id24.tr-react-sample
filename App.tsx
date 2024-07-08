@@ -35,7 +35,7 @@ const App = () => {
         <ScrollView contentContainerStyle={styles.container}>
           <Image source={require('./identifyLogo.png')} style={styles.logo} resizeMode="contain" />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { color: '#000' }]}
             placeholder="identId"
             placeholderTextColor="#bbb"
             value={identId}
@@ -48,7 +48,7 @@ const App = () => {
           </TouchableOpacity>
           {dropdownOpen && (
             <View style={styles.dropdown}>
-              <Text style={styles.dropdownHeader}>Choose SDK language</Text>
+              <Text style={[styles.dropdownHeader, { color: '#000' }]}>Choose SDK language</Text>
               {languages.map((language) => (
                 <TouchableOpacity
                   key={language.value}
