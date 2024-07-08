@@ -4,6 +4,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Prerequisites
 - Prepare react-native environment: https://reactnative.dev/docs/set-up-your-environment
+- React Native v0.74.2
 
 ## Additional prerequisites for iOS
 - XCode 15.3 or higher
