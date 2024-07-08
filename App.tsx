@@ -17,7 +17,7 @@ const App = () => {
   ];
 
   const handlePress = async () => {
-    const apiUrl = "https://api.id24tr-qa.bssgmbh.works";
+    const apiUrl = "XXXXXX-ENTERYOURAPIURLHERE-XXXXXX";
     const currentId = identId;
     try {
       const result = await IdentifyModule.startIdentification(apiUrl, currentId, selectedLanguage);

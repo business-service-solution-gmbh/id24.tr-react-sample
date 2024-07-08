@@ -21,6 +21,11 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 - in the same target go to General and in Frameworks, Libraries and Embedded Content find `IdentifySDK.xcframework` 
   and select `Embed and Sign` option
 
+# Configure App
+- Set your api URL in App.tsx:
+  `const apiUrl = "XXXXXX-ENTERYOURAPIURLHERE-XXXXXX";`
+
 # run iOS
 - in root folder run `npm start`
 - open another terminal. run `npm run ios`
+  - in case of issues, open `reactAppIdentify.xcworkspace` and try to run the app from there
