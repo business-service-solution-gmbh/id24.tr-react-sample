@@ -21,7 +21,7 @@ buildscript {
                     username = "bssserviceacc"
                     password = "xxxxxxxxx"
                 }
-            }
+           }
         }
     }
     dependencies {
