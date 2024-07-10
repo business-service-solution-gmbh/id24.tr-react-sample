@@ -36,7 +36,8 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
     }
   }`
 - in case you need to change SDK version, you can do it by changing build.gradle in design module:
-  `api 'com.identify.sdk:android:1.4.9'`
+  `api 'com.identify.sdk:android:1.5.0'`
+- run gradle sync
 
 ## Configure App
 - Set your api URL in App.tsx:
@@ -50,5 +51,5 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 ## Run Android
 - in root folder run `npm start` to start dev server
 - open another terminal. run `npm run android`
-  - in case of issues, open android module in your Android IDE and try to run the app from there.
+  - in case of issues, open android module in your Android IDE and try gradle sync.
     Additionally, you can check logcat for logs 
