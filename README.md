@@ -5,7 +5,8 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 ## Prerequisites
 - Prepare react-native environment: https://reactnative.dev/docs/set-up-your-environment
 - React Native v0.74.2
-- Android Studio or VS Code as IDE
+- Latest Android Studio or VS Code as IDE
+- Node 18.15.0
 
 ## Additional prerequisites for iOS
 - XCode 15.3 or higher
