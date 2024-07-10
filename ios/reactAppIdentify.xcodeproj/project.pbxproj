@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -180,8 +180,6 @@
 		48A89C8F2C1AE0A900F12960 /* TrackingPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 48A89C8E2C1AE0A900F12960 /* TrackingPermission */; };
 		7699B88040F8A987B510C191 /* libPods-reactAppIdentify-reactAppIdentifyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-reactAppIdentify-reactAppIdentifyTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		DFCCB5D12C3BD151006FB758 /* IdentifySDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCCB5CF2C3BD14F006FB758 /* IdentifySDK.xcframework */; };
-		DFCCB5D22C3BD151006FB758 /* IdentifySDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DFCCB5CF2C3BD14F006FB758 /* IdentifySDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,7 +199,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DFCCB5D22C3BD151006FB758 /* IdentifySDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,7 +369,6 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-reactAppIdentify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reactAppIdentify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = reactAppIdentify/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-reactAppIdentify-reactAppIdentifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactAppIdentify-reactAppIdentifyTests.release.xcconfig"; path = "Target Support Files/Pods-reactAppIdentify-reactAppIdentifyTests/Pods-reactAppIdentify-reactAppIdentifyTests.release.xcconfig"; sourceTree = "<group>"; };
-		DFCCB5CF2C3BD14F006FB758 /* IdentifySDK.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:KUE93LBN2W:Emir Beytekin"; lastKnownFileType = wrapper.xcframework; name = IdentifySDK.xcframework; path = "../../id24.tr-ios-archives/2.0.6/sdk/IdentifySDK.xcframework"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -410,7 +406,6 @@
 				48A89C592C1ADF7500F12960 /* Starscream in Frameworks */,
 				48A89C752C1AE0A900F12960 /* CameraPermission in Frameworks */,
 				48A89C652C1ADFDC00F12960 /* CHIOTPField in Frameworks */,
-				DFCCB5D12C3BD151006FB758 /* IdentifySDK.xcframework in Frameworks */,
 				48A89C6B2C1AE01600F12960 /* QKMRZScanner in Frameworks */,
 				48A89C622C1ADFBE00F12960 /* IQKeyboardManagerSwift in Frameworks */,
 				48A89C7D2C1AE0A900F12960 /* LocationPermission in Frameworks */,
@@ -474,7 +469,6 @@
 		48A89AF12C1ADDD600F12960 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				DFCCB5CF2C3BD14F006FB758 /* IdentifySDK.xcframework */,
 				48A89AF32C1ADE0400F12960 /* Assets.xcassets */,
 				48A89AFB2C1ADE0600F12960 /* Base.lproj */,
 				48A89AF82C1ADE0600F12960 /* Colors.xcassets */,
