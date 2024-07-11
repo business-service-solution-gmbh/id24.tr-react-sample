@@ -38,7 +38,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
     }
   }`
 - in case you need to change SDK version, you can do it by changing build.gradle in design module:
-  `api 'com.identify.sdk:android:1.5.0'`
+  `api 'com.identify.sdk:android:1.5.0'` (don't forget to update design folder accordingly)
 - run gradle sync
 
 ## Configure App
