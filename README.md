@@ -27,6 +27,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
   and select `Embed and Sign` option
 
 ## Setup Android
+- in terminal in root folder run `npm install`
 - in android/build.gradle enter correct credentials you obtained from BSS
   `maven {
     url = 'https://maven.pkg.github.com/business-service-solution-gmbh/id24.tr-android-sdk'
