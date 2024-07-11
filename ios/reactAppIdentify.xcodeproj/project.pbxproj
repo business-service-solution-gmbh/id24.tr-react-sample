@@ -48,12 +48,8 @@
 		48A89BE02C1ADE0700F12960 /* SDKListenSocketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A89B162C1ADE0700F12960 /* SDKListenSocketViewController.xib */; };
 		48A89BE12C1ADE0700F12960 /* SDKIdentifyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A89B182C1ADE0700F12960 /* SDKIdentifyLoginViewController.swift */; };
 		48A89BE22C1ADE0700F12960 /* SDKIdentifyLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A89B192C1ADE0700F12960 /* SDKIdentifyLoginViewController.xib */; };
-		48A89BE32C1ADE0700F12960 /* SDKModuleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A89B1B2C1ADE0700F12960 /* SDKModuleListViewController.swift */; };
-		48A89BE42C1ADE0700F12960 /* SDKModuleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A89B1C2C1ADE0700F12960 /* SDKModuleListViewController.xib */; };
 		48A89BE52C1ADE0700F12960 /* ServerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A89B1E2C1ADE0700F12960 /* ServerSettingsViewController.swift */; };
 		48A89BE62C1ADE0700F12960 /* ServerSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A89B1F2C1ADE0700F12960 /* ServerSettingsViewController.xib */; };
-		48A89BE72C1ADE0700F12960 /* EnvListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A89B212C1ADE0700F12960 /* EnvListViewController.swift */; };
-		48A89BE82C1ADE0700F12960 /* EnvListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A89B222C1ADE0700F12960 /* EnvListViewController.xib */; };
 		48A89BE92C1ADE0700F12960 /* SocketLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A89B252C1ADE0700F12960 /* SocketLogTableViewCell.swift */; };
 		48A89BEA2C1ADE0700F12960 /* SocketLogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A89B262C1ADE0700F12960 /* SocketLogTableViewCell.xib */; };
 		48A89BEB2C1ADE0700F12960 /* SDKSocketLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A89B282C1ADE0700F12960 /* SDKSocketLogsViewController.swift */; };
@@ -261,12 +257,8 @@
 		48A89B162C1ADE0700F12960 /* SDKListenSocketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDKListenSocketViewController.xib; sourceTree = "<group>"; };
 		48A89B182C1ADE0700F12960 /* SDKIdentifyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKIdentifyLoginViewController.swift; sourceTree = "<group>"; };
 		48A89B192C1ADE0700F12960 /* SDKIdentifyLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDKIdentifyLoginViewController.xib; sourceTree = "<group>"; };
-		48A89B1B2C1ADE0700F12960 /* SDKModuleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKModuleListViewController.swift; sourceTree = "<group>"; };
-		48A89B1C2C1ADE0700F12960 /* SDKModuleListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDKModuleListViewController.xib; sourceTree = "<group>"; };
 		48A89B1E2C1ADE0700F12960 /* ServerSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewController.swift; sourceTree = "<group>"; };
 		48A89B1F2C1ADE0700F12960 /* ServerSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerSettingsViewController.xib; sourceTree = "<group>"; };
-		48A89B212C1ADE0700F12960 /* EnvListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvListViewController.swift; sourceTree = "<group>"; };
-		48A89B222C1ADE0700F12960 /* EnvListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnvListViewController.xib; sourceTree = "<group>"; };
 		48A89B252C1ADE0700F12960 /* SocketLogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketLogTableViewCell.swift; sourceTree = "<group>"; };
 		48A89B262C1ADE0700F12960 /* SocketLogTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocketLogTableViewCell.xib; sourceTree = "<group>"; };
 		48A89B282C1ADE0700F12960 /* SDKSocketLogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKSocketLogsViewController.swift; sourceTree = "<group>"; };
@@ -561,15 +553,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		48A89B1D2C1ADE0700F12960 /* Module List */ = {
-			isa = PBXGroup;
-			children = (
-				48A89B1B2C1ADE0700F12960 /* SDKModuleListViewController.swift */,
-				48A89B1C2C1ADE0700F12960 /* SDKModuleListViewController.xib */,
-			);
-			path = "Module List";
-			sourceTree = "<group>";
-		};
 		48A89B202C1ADE0700F12960 /* Add New */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,20 +562,10 @@
 			path = "Add New";
 			sourceTree = "<group>";
 		};
-		48A89B232C1ADE0700F12960 /* List */ = {
-			isa = PBXGroup;
-			children = (
-				48A89B212C1ADE0700F12960 /* EnvListViewController.swift */,
-				48A89B222C1ADE0700F12960 /* EnvListViewController.xib */,
-			);
-			path = List;
-			sourceTree = "<group>";
-		};
 		48A89B242C1ADE0700F12960 /* Servers */ = {
 			isa = PBXGroup;
 			children = (
 				48A89B202C1ADE0700F12960 /* Add New */,
-				48A89B232C1ADE0700F12960 /* List */,
 			);
 			path = Servers;
 			sourceTree = "<group>";
@@ -620,7 +593,6 @@
 			isa = PBXGroup;
 			children = (
 				48A89B1A2C1ADE0700F12960 /* Login */,
-				48A89B1D2C1ADE0700F12960 /* Module List */,
 				48A89B242C1ADE0700F12960 /* Servers */,
 				48A89B2A2C1ADE0700F12960 /* SocketLogs */,
 			);
@@ -1206,7 +1178,6 @@
 				48A89C3E2C1ADE0700F12960 /* Localizable.strings in Resources */,
 				48A89C3C2C1ADE0700F12960 /* Localizable.strings in Resources */,
 				48A89C2F2C1ADE0700F12960 /* rotate@2x.png in Resources */,
-				48A89BE82C1ADE0700F12960 /* EnvListViewController.xib in Resources */,
 				48A89C402C1ADE0700F12960 /* Localizable.strings in Resources */,
 				48A89C2A2C1ADE0700F12960 /* flash@3x.png in Resources */,
 				48A89C352C1ADE0700F12960 /* Localizable.strings in Resources */,
@@ -1237,7 +1208,6 @@
 				48A89C282C1ADE0700F12960 /* flash.png in Resources */,
 				48A89BC72C1ADE0700F12960 /* Colors.xcassets in Resources */,
 				48A89C272C1ADE0700F12960 /* enhance@3x.png in Resources */,
-				48A89BE42C1ADE0700F12960 /* SDKModuleListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1392,7 +1362,6 @@
 				48A89BEF2C1ADE0700F12960 /* SDKAddressConfirmViewController.swift in Sources */,
 				48A89BE92C1ADE0700F12960 /* SocketLogTableViewCell.swift in Sources */,
 				48A89BDA2C1ADE0700F12960 /* SDKUIView+.swift in Sources */,
-				48A89BE72C1ADE0700F12960 /* EnvListViewController.swift in Sources */,
 				48066D1D2C20944A00BB3DED /* IdentifyModule.m in Sources */,
 				4842B5B12C1AF214004DBD6B /* IdentifyModule.swift in Sources */,
 				48A89C052C1ADE0700F12960 /* SDKSignatureViewController.swift in Sources */,
@@ -1429,7 +1398,6 @@
 				48A89BED2C1ADE0700F12960 /* SDKLoginViewController.swift in Sources */,
 				48A89C122C1ADE0700F12960 /* Quadrilateral.swift in Sources */,
 				48A89BF52C1ADE0700F12960 /* SDKPassportReaderViewController.swift in Sources */,
-				48A89BE32C1ADE0700F12960 /* SDKModuleListViewController.swift in Sources */,
 				48A89BCF2C1ADE0700F12960 /* SDKBundle+.swift in Sources */,
 				48A89C132C1ADE0700F12960 /* QuadrilateralView.swift in Sources */,
 				48A89BDB2C1ADE0700F12960 /* SDKViewOptionsController.swift in Sources */,

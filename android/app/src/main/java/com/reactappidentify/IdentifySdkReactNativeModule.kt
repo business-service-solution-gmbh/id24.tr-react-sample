@@ -77,7 +77,6 @@ class IdentifySdkReactNativeModule(private val reactContext: ReactApplicationCon
             .setCallConnectionTimeOut(20000)
             .setOpenIntroPage(false)
             .setDocumentType(DocType.ID_CARD)
-            .setModuleCacheType(ModuleCacheType.ALWAYS_BACK_TO_TOP)
             .setOpenThankYouPage(false)
             .setVideoRecordTime(5000)
             .setCallConnectionTimeOut(5000)
@@ -93,9 +92,6 @@ class IdentifySdkReactNativeModule(private val reactContext: ReactApplicationCon
 
         val identifyObject = IdentifySdk.Builder()
             .api(baseApiUrl)
-            .socket(baseSocketUrl, socketPort)
-            .stun(stunUrl, stunPort)
-            .turn(turnUrl, turnPort, username, password)
             .lifeCycle(lifecycle)
             .options(identityOptions)
             .build()
@@ -123,6 +119,14 @@ class IdentifySdkReactNativeModule(private val reactContext: ReactApplicationCon
 
             override fun redirectCallProcess() {
                 eventEmit("redirectCallProcess", null)
+            }
+
+            override fun redirectIdCardProcess() {
+                eventEmit("redirectIdCardProcess", null)
+            }
+
+            override fun redirectVerificationFailPage() {
+                eventEmit("redirectVerificationFailPage", null)
             }
         }
 
@@ -205,6 +209,10 @@ class IdentifySdkReactNativeModule(private val reactContext: ReactApplicationCon
                 } catch (e: Exception) {
                     eventEmit("nfcProcessFinished", null)
                 }
+            }
+
+            override fun prepareProcessFinished() {
+                eventEmit("prepareProcessFinished", null)
             }
 
             override fun signatureProcessFinished() {

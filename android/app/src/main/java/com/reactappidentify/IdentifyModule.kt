@@ -42,7 +42,7 @@ class IdentifyModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             .setOpenThankYouPage(false)
             .setVideoRecordTime(5000)
             .setCallConnectionTimeOut(5000)
-            .setAutoSelfieWithLivenessDetection(false)
+            .setAutoSelfieWithLivenessDetection(true)
             .setEnableFaceControlInSelfie(true)
             .setEnableLightInformationInCall(true)
             .build()
