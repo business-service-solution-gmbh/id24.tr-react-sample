@@ -9,9 +9,11 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import com.identify.sdk.IdentifySdk
+import com.identify.sdk.IdentifyTrackingListener
 import com.identify.sdk.IdentityOptions
 import com.identify.sdk.repository.model.enums.IdentifyModuleTypes
 import com.identify.sdk.repository.model.mrz.DocType
+import com.identify.sdk.tracking.TrackingEvent
 
 class IdentifyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -61,6 +63,12 @@ class IdentifyModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
                     .lifeCycle(activity.lifecycle)
                     .options(options)
                     .build()
+
+                identifyObject.identifyTrackingListener = object : IdentifyTrackingListener {
+                    override fun trackingEventReceived(trackingEvent: TrackingEvent) {
+                        Log.e("trackingEventReceived", trackingEvent.toString())
+                    }
+                }
 
                 identifyObject.startIdentification(currentActivity!!, identId, language)
                 promise.resolve("Identification started successfully")
