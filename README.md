@@ -54,4 +54,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 - in root folder run `npm start` to start dev server
 - open another terminal. run `npm run android`
   - in case of issues, open android module in your Android IDE and try gradle sync.
-    Additionally, you can check logcat for logs 
+    Additionally, you can check logcat for logs
+
+## See React-Native logs
+- run `react-native log-android` or `react-native log-ios` in terminal

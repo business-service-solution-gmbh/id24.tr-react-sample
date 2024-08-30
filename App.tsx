@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
-import { NativeModules } from 'react-native';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 const { IdentifyModule } = NativeModules;
 
 const App = () => {
   const [identId, setIdentId] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('tr');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+      const eventEmitter = new NativeEventEmitter(IdentifyModule);
+      const eventListener = eventEmitter.addListener('TrackingEventReceived', (event) => {
+//         const context = JSON.parse(event.context);
+
+        console.log('Tracking event received');
+        console.log('Context:', event.context);
+        console.log('Time:', event.time);
+        console.log('Event Type:', event.eventType);
+      });
+
+      return () => {
+        eventListener.remove();
+      };
+    }, []);
 
   const languages = [
     { label: 'Türkçe', value: 'tr' },
