@@ -9,8 +9,12 @@ import UIKit
 import IdentifySDK
 import CoreData
 
-class SDKIdentifyLoginViewController: SDKBaseViewController {
+public protocol ReactEventListener : AnyObject {
+    func sendTrackingMessage(message: TrackingEvent)
+}
 
+class SDKIdentifyLoginViewController: SDKBaseViewController {
+  
     @IBOutlet weak var langBtn: IdentifyButton!
     @IBOutlet weak var loginBtn: IdentifyButton!
     @IBOutlet weak var identIdArea: UITextField!
@@ -34,6 +38,9 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
     var cominLang: String? = ""
     
     @IBOutlet weak var serverSelector: IdentifyButton!
+  
+    var reactEventListener: ReactEventListener?
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSDK()
@@ -71,6 +78,8 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
       } else if self.cominLang == "de" {
           self.manager.setSDKLang(lang: .de)
       }
+      
+      self.manager.trackingDelegate = self
       
       forceLoginForReact()
     }
@@ -292,5 +301,11 @@ extension SDKIdentifyLoginViewController: UITextFieldDelegate {
         }
         
         return true
+    }
+}
+
+extension SDKIdentifyLoginViewController: IdentifyTrackingListener {
+    func eventReceived(event: IdentifySDK.TrackingEvent) {
+        self.reactEventListener?.sendTrackingMessage(message: event)
     }
 }

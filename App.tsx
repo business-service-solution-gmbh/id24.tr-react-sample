@@ -8,20 +8,21 @@ const App = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('tr');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  // this is just an example of tracking events received from native module
+  // do not implement it like this in your app
   useEffect(() => {
       const eventEmitter = new NativeEventEmitter(IdentifyModule);
       const eventListener = eventEmitter.addListener('TrackingEventReceived', (event) => {
 //         const context = JSON.parse(event.context);
 
         console.log('Tracking event received');
-        console.log('Context:', event.context);
-        console.log('Time:', event.time);
         console.log('Event Type:', event.eventType);
+        console.log('Time:', event.time);
+        console.log('Context:', event.context);
       });
-
-      return () => {
-        eventListener.remove();
-      };
+//       return () => {
+//         eventListener.remove();
+//       };
     }, []);
 
   const languages = [
