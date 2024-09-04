@@ -14,14 +14,26 @@ import React
 
 
 @objc(IdentifyModule)
-class IdentifyModule: NSObject, RCTBridgeModule{
+class IdentifyModule: RCTEventEmitter {
   
-  static func moduleName() -> String! {
+  override static func moduleName() -> String! {
     "IdentifyModule"
   }
 
-  static func requiresMainQueueSetup() -> Bool {
+  override static func requiresMainQueueSetup() -> Bool {
     return true;
+  }
+  
+  override func addListener(_ eventName: String!) {
+      super.addListener(eventName)
+  }
+
+  override func removeListeners(_ count: Double) {
+      super.removeListeners(count)
+  }
+  
+  override func supportedEvents() -> [String]! {
+      return ["TrackingEventReceived"]
   }
   
   @objc
@@ -33,6 +45,7 @@ class IdentifyModule: NSObject, RCTBridgeModule{
       }
 
       let firstVC = SDKIdentifyLoginViewController()
+      firstVC.reactEventListener = self
       firstVC.cominId = identId
       firstVC.cominUrl = apiUrl
       firstVC.cominLang = language
@@ -42,5 +55,19 @@ class IdentifyModule: NSObject, RCTBridgeModule{
       appDelegate.window.makeKeyAndVisible()
     }
     
+  }
+}
+
+extension IdentifyModule: ReactEventListener {
+  func sendTrackingMessage(message: IdentifySDK.TrackingEvent) {
+    let eventTypeDescription = message.eventType.map { String(describing: $0) } ?? "Unknown"
+    
+    let body: [String: Any?] = [
+      "eventType": eventTypeDescription,
+      "context": message.context ?? [:],
+      "time": message.time ?? "No Time"
+    ]
+        
+    sendEvent(withName: "TrackingEventReceived", body: body)
   }
 }
