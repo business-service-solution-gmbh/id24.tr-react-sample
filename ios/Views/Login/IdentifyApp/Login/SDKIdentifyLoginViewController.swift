@@ -9,10 +9,6 @@ import UIKit
 import IdentifySDK
 import CoreData
 
-public protocol ReactEventListener : AnyObject {
-    func sendTrackingMessage(message: TrackingEvent)
-}
-
 class SDKIdentifyLoginViewController: SDKBaseViewController {
   
     @IBOutlet weak var langBtn: IdentifyButton!
@@ -38,9 +34,7 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
     var cominLang: String? = ""
     
     @IBOutlet weak var serverSelector: IdentifyButton!
-  
-    var reactEventListener: ReactEventListener?
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSDK()
@@ -204,6 +198,7 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
 extension SDKIdentifyLoginViewController: SDKSocketListener {
     
     func listenSocketMessage(message: SDKCallActions) {
+      
         switch message {
             case .wrongSocketActionErr(let error):
                 self.hideLoader()
@@ -217,6 +212,7 @@ extension SDKIdentifyLoginViewController: SDKSocketListener {
                 self.showToast(type: .fail, title: self.translate(text: .coreError), subTitle: self.translate(text: .anotherUserInToTheRoom), attachTo: self.view) {
                     return
                 }
+          
             default:
                 self.subRejected = false
                 return
@@ -306,6 +302,14 @@ extension SDKIdentifyLoginViewController: UITextFieldDelegate {
 
 extension SDKIdentifyLoginViewController: IdentifyTrackingListener {
     func eventReceived(event: IdentifySDK.TrackingEvent) {
-        self.reactEventListener?.sendTrackingMessage(message: event)
+        let eventTypeDescription = event.eventType.map { String(describing: $0) } ?? "Unknown"
+        
+        let body: [String: Any?] = [
+          "eventType": eventTypeDescription,
+          "context": event.context ?? [:],
+          "time": event.time ?? "No Time"
+        ]
+      
+        IdentifyModule.instance?.sendEventToReact(event: .sendTrackingMessage, message: body)
     }
 }

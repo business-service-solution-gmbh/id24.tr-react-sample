@@ -173,6 +173,8 @@ extension SDKCallScreenViewController: SDKSocketListener {
                 self.listenToSocketConnection(callCompleted: true)
                 setupCallScreen(inCall: false)
                 self.callIsDone(doneStatus: .completed)
+          
+                IdentifyModule.instance?.sendEventToReact(event: .callTerminated, message: nil)
                 
                 print("görüşme kapandı")
             case .imOffline:
@@ -227,10 +229,10 @@ extension SDKCallScreenViewController: SDKSocketListener {
                         }
                 }
             case .missedCall: // belirli süre boyunca telefon çaldı fakat müşteri açmadı veya temsilci aradı fakat telefon açılmadan aramayı sonlandırdı
-            self.dismiss(animated: true) {
-                self.callIsDone(doneStatus: .missedCall)
-            }
-            
+              self.dismiss(animated: true) {
+                  self.callIsDone(doneStatus: .missedCall)
+              }
+                      
             case .connectionErr:  // socket kopması durumunda tetiklenir
                 setupCallScreen(inCall: false) // kameraları kapatıp bekleme ekranı görüntüsünü aktif eder
                 openSocketDisconnect(callCompleted: false) // bağlantı koptuğuna dair disconnect penceresini present eder

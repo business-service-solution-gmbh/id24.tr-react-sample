@@ -14,11 +14,14 @@ const App = () => {
       const eventEmitter = new NativeEventEmitter(IdentifyModule);
       const eventListener = eventEmitter.addListener('TrackingEventReceived', (event) => {
 //         const context = JSON.parse(event.context);
-
         console.log('Tracking event received');
         console.log('Event Type:', event.eventType);
         console.log('Time:', event.time);
         console.log('Context:', event.context);
+      });
+
+      eventEmitter.addListener('CallTerminated', (event) => {
+          console.log('CallTerminated event received');
       });
 //       return () => {
 //         eventListener.remove();
