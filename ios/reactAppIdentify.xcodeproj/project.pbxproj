@@ -228,7 +228,6 @@
 		48A89AF32C1ADE0400F12960 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48A89AF42C1ADE0500F12960 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
 		48A89AF52C1ADE0500F12960 /* NewTest.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = NewTest.entitlements; sourceTree = "<group>"; };
-		48A89AF72C1ADE0600F12960 /* Env.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Env.xcdatamodel; sourceTree = "<group>"; };
 		48A89AF82C1ADE0600F12960 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		48A89AF92C1ADE0600F12960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48A89AFC2C1ADE0600F12960 /* AZERI.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AZERI.json; sourceTree = "<group>"; };
@@ -472,7 +471,6 @@
 				48A89AF32C1ADE0400F12960 /* Assets.xcassets */,
 				48A89AFB2C1ADE0600F12960 /* Base.lproj */,
 				48A89AF82C1ADE0600F12960 /* Colors.xcassets */,
-				48A89AF62C1ADE0600F12960 /* Env.xcdatamodeld */,
 				48A89AF52C1ADE0500F12960 /* NewTest.entitlements */,
 				48A89AF22C1ADE0400F12960 /* PrivacyInfo.xcprivacy */,
 				48A89B112C1ADE0600F12960 /* RequiredForApp */,
@@ -1238,9 +1236,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify/Pods-reactAppIdentify-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify/Pods-reactAppIdentify-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1299,9 +1301,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify-reactAppIdentifyTests/Pods-reactAppIdentify-reactAppIdentifyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify-reactAppIdentifyTests/Pods-reactAppIdentify-reactAppIdentifyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1316,9 +1322,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify/Pods-reactAppIdentify-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify/Pods-reactAppIdentify-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1333,9 +1343,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify-reactAppIdentifyTests/Pods-reactAppIdentify-reactAppIdentifyTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-reactAppIdentify-reactAppIdentifyTests/Pods-reactAppIdentify-reactAppIdentifyTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1808,6 +1822,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_OBJC_BRIDGING_HEADER = "reactAppIdentify-Bridging-Header.h";
 				USE_HERMES = true;
 			};
@@ -2129,20 +2144,6 @@
 			productName = TrackingPermission;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		48A89AF62C1ADE0600F12960 /* Env.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				48A89AF72C1ADE0600F12960 /* Env.xcdatamodel */,
-			);
-			currentVersion = 48A89AF72C1ADE0600F12960 /* Env.xcdatamodel */;
-			name = Env.xcdatamodeld;
-			path = "/Users/emirbeytekin/Documents/Identify/iOSApps/id24.tr-react-sample/ios/Env.xcdatamodeld";
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
