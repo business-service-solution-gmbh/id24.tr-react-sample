@@ -9,6 +9,11 @@ import UIKit
 import IdentifySDK
 import CoreData
 
+protocol SDKIdentifyLoginDelegate {
+  func onIdentifyLoginSuccess()
+  func onIdentifyLoginFailure()
+}
+
 class SDKIdentifyLoginViewController: SDKBaseViewController {
   
     @IBOutlet weak var langBtn: IdentifyButton!
@@ -20,6 +25,8 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
     var selectedServer = SelectedServerSettings()
     var envList = [SelectedServerSettings]()
     var userDefaults = UserDefaults.standard
+    var loginDelegate: SDKIdentifyLoginDelegate?
+    var nextStepVC: UIViewController?
     
     var selectedModuleList = [SdkModules]()
     var editedShowBigCustomer = false
@@ -37,12 +44,12 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupSDK()
+//        self.setupSDK()
     }
     
     // MARK:  Modül - Controller eşleşmesi yapıyoruz
     
-    private func setupSDK() { // Modül - Controller eşleşmesi yapıyoruz
+    func setupSDK() { // Modül - Controller eşleşmesi yapıyoruz
         self.manager.setSDKLang(lang: .eng)
         self.manager.loginModuleController = SDKLoginViewController.instantiate()
         self.manager.selfieModuleController = SDKSelfieViewController.instantiate()
@@ -57,7 +64,7 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
         self.manager.thankYouViewController = SDKThankYouViewController.instantiate()
         self.manager.prepareViewController = SDKPrepareViewController.instantiate()
         self.manager.socketMessageListener = self // eğer odada farklı bir kişi varsa listener sayesinde detect edebiliyoruz.
-        self.setupUI()
+//        self.setupUI()
         if manager.jailBreakStatus {
             self.jbView.isHidden = false
             print("cihazda jb tespit edildi, bu durumu yönetebilirsiniz.")
@@ -74,42 +81,37 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
       }
       
       self.manager.trackingDelegate = self
-      
-      forceLoginForReact()
+      self.connectSDK()
     }
     
     private func setupUI() {
-        self.loginBtn.setTitle(self.translate(text: .connect), for: .normal)
-        self.loginBtn.type = .submit
-        self.loginBtn.onTap = {
-            self.loginSystem()
-        }
-        self.loginBtn.populate()
-        
-        self.langBtn.setTitle("Select SDK Language", for: .normal)
-        self.langBtn.type = .cancel
-        self.langBtn.onTap = {
-            self.showLangOptions()
-        }
-        self.langBtn.populate()
-        self.versionNo.text = "Build No: \(Bundle.main.buildVersionNumber ?? "")"
-        self.navigationItem.rightBarButtonItem = nil
-        self.identIdArea.delegate = self
-        self.identIdArea.tag = 0
-        self.identIdArea.returnKeyType = .go
-        
-        self.identIdArea.text = self.cominId
+//        self.loginBtn.setTitle(self.translate(text: .connect), for: .normal)
+//        self.loginBtn.type = .submit
+//        self.loginBtn.onTap = {
+//            self.loginSystem()
+//        }
+//        self.loginBtn.populate()
+//        
+//        self.langBtn.setTitle("Select SDK Language", for: .normal)
+//        self.langBtn.type = .cancel
+//        self.langBtn.onTap = {
+//            self.showLangOptions()
+//        }
+//        self.langBtn.populate()
+//        self.versionNo.text = "Build No: \(Bundle.main.buildVersionNumber ?? "")"
+//        self.navigationItem.rightBarButtonItem = nil
+//        self.identIdArea.delegate = self
+//        self.identIdArea.tag = 0
+//        self.identIdArea.returnKeyType = .go
+//        
+//        self.identIdArea.text = self.cominId
     }
     
     // MARK:  Sisteme giriş yapıyoruz
     
     private func connectSDK() {
-        self.view.endEditing(true)
-        
-        self.showLoader()
-        
         self.manager.setupSDK(
-            identId: identIdArea.text!,
+          identId: self.cominId!,
             baseApiUrl: self.selectedServer.apiUrl,
             networkOptions: SDKNetworkOptions(timeoutIntervalForRequest: 30, timeoutIntervalForResource: 30, useSslPinning: self.useSSLPinning),
             kpsData: nil, // EĞER ELİNİZDE KPS DEN GELEN KİMLİK DATALARI VARSA ALTTAKİ KODU AKTİF EDİP BU SATIRI SİLEBİLİRSİNİZ.
@@ -123,43 +125,42 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
             idCardLang: self.idLang
         ) { socketStats, apiResp, webErr in
                 
-            print("socket resp : \(socketStats)")
+          print("socket resp : \(socketStats)")
             if let err = webErr, err.errorMessages != "" { // web servisten hata gelirse
-                self.showToast(type:. fail, title: self.translate(text: .coreError), subTitle: err.errorMessages, attachTo: self.view) {
-                    self.hideLoader()
-                }
+                self.loginDelegate?.onIdentifyLoginFailure()
             } else { // hata yoksa işlemlere devam ediyoruz
                 if socketStats?.isConnected ==  true {
                     if apiResp.result ?? false {
-                        self.manager.moduleStepOrder = 0
-                        self.hideLoader()
-                        self.manager.getNextModule { nextVC in
-                            if !self.subRejected {
-                                let navigationC = UINavigationController(rootViewController: nextVC)
-                                navigationC.isModalInPresentation = true
-                                self.showToast(title: self.translate(text: .coreSuccess), subTitle: self.translate(text: .loadingFirstModule), attachTo: self.view, callback: {
-                                    DispatchQueue.main.async {
-                                        self.navigationController?.present(navigationC, animated: true) // İlk modül başlıyor
-                                    }
-                                })
-                            }
-                        }
+                      self.manager.moduleStepOrder = 0
+                      self.manager.getNextModule { nextVC in
+                          if !self.subRejected {
+                            self.nextStepVC = nextVC
+                            self.loginDelegate?.onIdentifyLoginSuccess()
+                          } else {
+                            self.loginDelegate?.onIdentifyLoginFailure()
+                          }
+                      }
                     } else if (socketStats?.isConnected == false) {
-                        self.showToast(title: "Socket not connected", attachTo: self.view) {
-                            self.hideLoader()
-                        }
-                        print("socket down")
+                        self.loginDelegate?.onIdentifyLoginFailure()
+                        print("socket result false")
                     }
                 } else {
-                    self.hideLoader()
+                    print("socket not connected")
+                    self.loginDelegate?.onIdentifyLoginFailure()
                 }
             }
         }
     }
-  
-    private func forceLoginForReact() {
-      self.idLang = .TR
-      self.connectSDK()
+    
+    func startSDK() {
+      if (nextStepVC == nil) { return }
+      let navigationC = UINavigationController(rootViewController: self.nextStepVC!)
+      navigationC.isModalInPresentation = true
+      self.showToast(title: self.translate(text: .coreSuccess), subTitle: self.translate(text: .loadingFirstModule), attachTo: self.view, callback: {
+          DispatchQueue.main.async {
+              self.navigationController?.present(navigationC, animated: true) // İlk modül başlıyor
+          }
+      })
     }
     
     private func loginSystem() {

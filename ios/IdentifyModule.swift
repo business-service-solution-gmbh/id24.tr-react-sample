@@ -22,6 +22,9 @@ class IdentifyModule: RCTEventEmitter {
   
   static var instance: IdentifyModule?
   
+  var mainController: UINavigationController?
+  var loginController: SDKIdentifyLoginViewController?
+  
   override init() {
     super.init()
     IdentifyModule.instance = self
@@ -59,10 +62,15 @@ class IdentifyModule: RCTEventEmitter {
       firstVC.cominId = identId
       firstVC.cominUrl = apiUrl
       firstVC.cominLang = language
-      let firstNC = UINavigationController(rootViewController: firstVC)
-      UINavigationBar.appearance().tintColor = .white
-      appDelegate.window.rootViewController = firstNC
-      appDelegate.window.makeKeyAndVisible()
+      firstVC.loginDelegate = self
+      
+      self.loginController = firstVC
+      self.mainController = UINavigationController(rootViewController: self.loginController!)
+      
+      firstVC.setupSDK()
+
+//      appDelegate.window.rootViewController = self.mainController!
+//      appDelegate.window.makeKeyAndVisible()
     }
   }
   
@@ -74,4 +82,23 @@ class IdentifyModule: RCTEventEmitter {
       sendEvent(withName: "CallTerminated", body: nil)
     }
   }
+}
+
+extension IdentifyModule: SDKIdentifyLoginDelegate {
+  func onIdentifyLoginSuccess() {
+    DispatchQueue.main.async {
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return
+      }
+      appDelegate.window.rootViewController = self.mainController!
+      appDelegate.window.makeKeyAndVisible()
+      self.loginController!.startSDK()
+    }
+  }
+  
+  func onIdentifyLoginFailure() {
+    print("FAILED")
+  }
+  
+  
 }
