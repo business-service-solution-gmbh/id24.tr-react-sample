@@ -90,6 +90,13 @@ class IdentifyModule: RCTEventEmitter {
     self.manager.speechModuleController = SDKSpeechRecViewController.instantiate()
     self.manager.thankYouViewController = SDKThankYouViewController.instantiate()
     self.manager.prepareViewController = SDKPrepareViewController.instantiate()
+    
+    self.manager.socketMessageListener = self // use the listener to detect if another person is present in the room.
+    self.manager.trackingDelegate = self  // receive tracking events
+
+    if manager.jailBreakStatus {
+//      Jailbreak detected on the device — handle this case as needed
+    }
   }
   
   // You are able to pass more properties here in order to configure the SDK
@@ -178,5 +185,19 @@ extension IdentifyModule: SDKSocketListener {
                 self.subRejected = false
                 break
         }
+    }
+}
+
+extension IdentifyModule: IdentifyTrackingListener {
+    func eventReceived(event: IdentifySDK.TrackingEvent) {
+        let eventTypeDescription = event.eventType.map { String(describing: $0) } ?? "Unknown"
+        
+        let body: [String: Any?] = [
+          "eventType": eventTypeDescription,
+          "context": event.context ?? [:],
+          "time": event.time ?? "No Time"
+        ]
+      
+        self.sendEventToReact(event: .sendTrackingMessage, message: body)
     }
 }

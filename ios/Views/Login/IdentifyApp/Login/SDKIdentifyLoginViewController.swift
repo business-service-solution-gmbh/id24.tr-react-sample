@@ -9,11 +9,8 @@ import UIKit
 import IdentifySDK
 import CoreData
 
-protocol SDKIdentifyLoginDelegate {
-  func onIdentifyLoginSuccess()
-  func onIdentifyLoginFailure()
-}
-
+// THIS CLASS IS SLIGHTLY MODIFIED COMPARED TO NATIVE SOLUTION.
+// THIS CLASS IS UNUSED IN REACT IN NEWER RELEASES
 class SDKIdentifyLoginViewController: SDKBaseViewController {
   
     @IBOutlet weak var langBtn: IdentifyButton!
@@ -25,8 +22,6 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
     var selectedServer = SelectedServerSettings()
     var envList = [SelectedServerSettings]()
     var userDefaults = UserDefaults.standard
-    var loginDelegate: SDKIdentifyLoginDelegate?
-    var nextStepVC: UIViewController?
     
     var selectedModuleList = [SdkModules]()
     var editedShowBigCustomer = false
