@@ -156,19 +156,6 @@ class IdentifyModule: RCTEventEmitter {
           }
         }
     }
-  
-  func topViewController(_ root: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-      if let nav = root as? UINavigationController {
-          return topViewController(nav.visibleViewController)
-      }
-      if let tab = root as? UITabBarController {
-          return topViewController(tab.selectedViewController)
-      }
-      if let presented = root?.presentedViewController {
-          return topViewController(presented)
-      }
-      return root
-  }
 }
 
 
