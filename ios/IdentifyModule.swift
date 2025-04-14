@@ -22,8 +22,9 @@ class IdentifyModule: RCTEventEmitter {
   
   static var instance: IdentifyModule?
   
-  var mainController: UINavigationController?
-  var loginController: SDKIdentifyLoginViewController?
+  let manager = IdentifyManager.shared
+  
+  var subRejected = false
   
   override init() {
     super.init()
@@ -52,25 +53,10 @@ class IdentifyModule: RCTEventEmitter {
   
   @objc
   func startIdentification(_ apiUrl: String!, identId: String!, language: String!) {
-    
+    UINavigationBar.appearance().tintColor = .white
     DispatchQueue.main.async {
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return
-      }
-      
-      let firstVC = SDKIdentifyLoginViewController()
-      firstVC.cominId = identId
-      firstVC.cominUrl = apiUrl
-      firstVC.cominLang = language
-      firstVC.loginDelegate = self
-      
-      self.loginController = firstVC
-      self.mainController = UINavigationController(rootViewController: self.loginController!)
-      
-      firstVC.setupSDK()
-
-//      appDelegate.window.rootViewController = self.mainController!
-//      appDelegate.window.makeKeyAndVisible()
+      self.configureSDK(language)
+      self.connectSDK(apiUrl, identId: identId, language: language)
     }
   }
   
@@ -82,23 +68,115 @@ class IdentifyModule: RCTEventEmitter {
       sendEvent(withName: "CallTerminated", body: nil)
     }
   }
+  
+  func configureSDK(_ language: String) {
+    if language == "tr" {
+        self.manager.setSDKLang(lang: .tr)
+    } else if language == "en" {
+        self.manager.setSDKLang(lang: .eng)
+    } else if language == "de" {
+        self.manager.setSDKLang(lang: .de)
+    }
+        
+    self.manager.loginModuleController = SDKLoginViewController.instantiate()
+    self.manager.selfieModuleController = SDKSelfieViewController.instantiate()
+    self.manager.idCardModuleController = SDKCardReaderViewController.instantiate()
+    self.manager.nfcModuleController = SDKNfcViewController.instantiate()
+    self.manager.signatureModuleController = SDKSignatureViewController.instantiate()
+    self.manager.videoRecorderModuleController = SDKVideoRecorderViewController.instantiate()
+    self.manager.livenessModuleController = SDKLivenessViewController.instantiate()
+    self.manager.addressModuleController = SDKAddressConfirmViewController.instantiate()
+    self.manager.liveStreamModuleController = SDKCallScreenViewController.instantiate()
+    self.manager.speechModuleController = SDKSpeechRecViewController.instantiate()
+    self.manager.thankYouViewController = SDKThankYouViewController.instantiate()
+    self.manager.prepareViewController = SDKPrepareViewController.instantiate()
+  }
+  
+  // You are able to pass more properties here in order to configure the SDK
+  private func connectSDK(_ apiUrl: String!, identId: String!, language: String!) {
+      if language == "tr" {
+          self.manager.setSDKLang(lang: .tr)
+      } else if language == "en" {
+          self.manager.setSDKLang(lang: .eng)
+      } else if language == "de" {
+          self.manager.setSDKLang(lang: .de)
+      }
+    
+      self.manager.setupSDK(
+          identId: identId,
+          baseApiUrl: apiUrl,
+          networkOptions: SDKNetworkOptions(timeoutIntervalForRequest: 30, timeoutIntervalForResource: 30, useSslPinning: false),
+          kpsData: nil, // if data is comming from KPS, configure it here
+//          kpsData: SDKKpsData(birthDate: "860704", validDate: "130627", serialNo: "YZM33MR63"),
+          identCardType: [.idCard, .passport, .oldSchool], // supported card types
+          signLangSupport: false, // representative support for tje hearing impaired
+          nfcMaxErrorCount: 3,
+          logLevel: .all,
+          bigCustomerCam: false,
+          selectedModules: [],
+          idCardLang: .TR
+      ) { socketStats, apiResp, webErr in
+          print("socket resp : \(socketStats)")
+          if let err = webErr, let errorMessage = err.errorMessages, errorMessage != "" { // error from backend
+            print("error connecting to server: \(errorMessage)")
+          } else { // in case no errors, continue
+              if socketStats?.isConnected ==  true {
+                  if apiResp.result ?? false {
+                    self.manager.moduleStepOrder = 0
+                    self.manager.getNextModule { nextVC in
+                      let navigationC = UINavigationController(rootViewController: nextVC)
+                      navigationC.isModalInPresentation = true
+                      
+                      UINotificationFeedbackGenerator().notificationOccurred(.success)
+                      
+                      let topController = UIApplication.topViewController()
+
+                      DispatchQueue.main.async {
+//                        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+//                          return
+//                        }
+//                        appDelegate.window.rootViewController = navigationC
+//                        appDelegate.window.makeKeyAndVisible()
+                        topController?.present(navigationC, animated: true) // best to use topController, so we can present SDK modally
+                      }
+                    }
+                  } else if (socketStats?.isConnected == false) {
+                      print("socket result false")
+                  }
+              } else {
+                  print("socket not connected")
+              }
+          }
+        }
+    }
+  
+  func topViewController(_ root: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+      if let nav = root as? UINavigationController {
+          return topViewController(nav.visibleViewController)
+      }
+      if let tab = root as? UITabBarController {
+          return topViewController(tab.selectedViewController)
+      }
+      if let presented = root?.presentedViewController {
+          return topViewController(presented)
+      }
+      return root
+  }
 }
 
-extension IdentifyModule: SDKIdentifyLoginDelegate {
-  func onIdentifyLoginSuccess() {
-    DispatchQueue.main.async {
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return
-      }
-      appDelegate.window.rootViewController = self.mainController!
-      appDelegate.window.makeKeyAndVisible()
-      self.loginController!.startSDK()
+
+extension IdentifyModule: SDKSocketListener {
+    func listenSocketMessage(message: SDKCallActions) {
+        switch message {
+            case .wrongSocketActionErr(let error):
+                print("wrongSocketActionErr: \(error)")
+                break
+            case .subrejectedDismiss:
+                self.subRejected = true
+                break
+            default:
+                self.subRejected = false
+                break
+        }
     }
-  }
-  
-  func onIdentifyLoginFailure() {
-    print("FAILED")
-  }
-  
-  
 }
