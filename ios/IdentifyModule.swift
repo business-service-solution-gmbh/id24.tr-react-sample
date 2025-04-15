@@ -57,7 +57,7 @@ class IdentifyModule: RCTEventEmitter {
     UINavigationBar.appearance().tintColor = .white
     DispatchQueue.main.async {
       self.configureSDK(language)
-      self.connectSDK(apiUrl, identId: identId, language: language) { success, errorMessage in
+      self.connectSDK(apiUrl, identId: identId) { success, errorMessage in
         resolve(success)
       }
     }
@@ -110,7 +110,7 @@ class IdentifyModule: RCTEventEmitter {
   }
   
   // You are able to pass more properties here in order to configure the SDK
-  private func connectSDK(_ apiUrl: String!, identId: String!, language: String!, completion: @escaping (Bool, String?) -> Void) {
+  private func connectSDK(_ apiUrl: String!, identId: String!, completion: @escaping (Bool, String?) -> Void) {
       self.manager.setupSDK(
           identId: identId,
           baseApiUrl: apiUrl,
