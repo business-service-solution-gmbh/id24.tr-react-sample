@@ -111,14 +111,6 @@ class IdentifyModule: RCTEventEmitter {
   
   // You are able to pass more properties here in order to configure the SDK
   private func connectSDK(_ apiUrl: String!, identId: String!, language: String!, completion: @escaping (Bool, String?) -> Void) {
-      if language == "tr" {
-          self.manager.setSDKLang(lang: .tr)
-      } else if language == "en" {
-          self.manager.setSDKLang(lang: .eng)
-      } else if language == "de" {
-          self.manager.setSDKLang(lang: .de)
-      }
-    
       self.manager.setupSDK(
           identId: identId,
           baseApiUrl: apiUrl,
