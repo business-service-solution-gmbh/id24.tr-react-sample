@@ -73,12 +73,19 @@ class IdentifyModule: RCTEventEmitter {
   }
   
   func configureSDK(_ language: String) {
-    if language == "tr" {
+    switch language {
+    case "tr":
         self.manager.setSDKLang(lang: .tr)
-    } else if language == "en" {
+    case "en":
         self.manager.setSDKLang(lang: .eng)
-    } else if language == "de" {
+    case "de":
         self.manager.setSDKLang(lang: .de)
+    case "ru":
+        self.manager.setSDKLang(lang: .ru)
+    case "az":
+        self.manager.setSDKLang(lang: .az)
+    default:
+        self.manager.setSDKLang(lang: .tr)
     }
         
     self.manager.loginModuleController = SDKLoginViewController.instantiate()
