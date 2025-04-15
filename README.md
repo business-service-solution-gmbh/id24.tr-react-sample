@@ -9,8 +9,8 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 - Node 18.15.0
 
 ## Additional prerequisites for iOS
-- XCode 15.3 or higher
-- cocoapods 1.14.3
+- XCode 16.3 or higher
+- cocoapods 1.16.2
 - access to IdentifySDK (contact Identify team to get it)
 
 ## Additional prerequisites for Android

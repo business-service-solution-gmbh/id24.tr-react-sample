@@ -11,5 +11,7 @@
 @interface RCT_EXTERN_MODULE(IdentifyModule, NSObject)
 RCT_EXTERN_METHOD(startIdentification:(NSString *)apiUrl
                   identId:(NSString *)identId
-                  language:(NSString *)language)
+                  language:(NSString *)language
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 @end

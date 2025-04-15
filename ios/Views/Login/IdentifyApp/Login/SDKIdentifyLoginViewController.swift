@@ -9,6 +9,8 @@ import UIKit
 import IdentifySDK
 import CoreData
 
+// THIS CLASS IS SLIGHTLY MODIFIED COMPARED TO NATIVE VERSION. FOR LATEST UPDATES PLEASE CHECK NATIVE REPOSITORY.
+// THIS IS UNUSED IN REACT IN NEWER RELEASES
 class SDKIdentifyLoginViewController: SDKBaseViewController {
   
     @IBOutlet weak var langBtn: IdentifyButton!
@@ -177,18 +179,18 @@ class SDKIdentifyLoginViewController: SDKBaseViewController {
 //        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
 //            return
 //        }
-//        
+//
 //        let managedContext = appDelegate.persistentContainer.viewContext
-//                
+//
 //        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EnvServers")
-//        
+//
 //        do {
 //            let fetchResults = try managedContext.fetch(fetchRequest)
 //            for item in fetchResults as! [NSManagedObject] {
 //                print(item)
 ////                shoppingItems.append(item.value(forKey: "item") as! String)
 //            }
-//            
+//
 //        } catch let error{
 //            print(error.localizedDescription)
 //        }
