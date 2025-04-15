@@ -52,11 +52,14 @@ class IdentifyModule: RCTEventEmitter {
   }
   
   @objc
-  func startIdentification(_ apiUrl: String!, identId: String!, language: String!) {
+  func startIdentification(_ apiUrl: String!, identId: String!, language: String!, resolve: @escaping RCTPromiseResolveBlock,
+                           reject: @escaping RCTPromiseRejectBlock) {
     UINavigationBar.appearance().tintColor = .white
     DispatchQueue.main.async {
       self.configureSDK(language)
-      self.connectSDK(apiUrl, identId: identId, language: language)
+      self.connectSDK(apiUrl, identId: identId, language: language) { success, errorMessage in
+        resolve(success)
+      }
     }
   }
   
@@ -100,7 +103,7 @@ class IdentifyModule: RCTEventEmitter {
   }
   
   // You are able to pass more properties here in order to configure the SDK
-  private func connectSDK(_ apiUrl: String!, identId: String!, language: String!) {
+  private func connectSDK(_ apiUrl: String!, identId: String!, language: String!, completion: @escaping (Bool, String?) -> Void) {
       if language == "tr" {
           self.manager.setSDKLang(lang: .tr)
       } else if language == "en" {
@@ -126,6 +129,7 @@ class IdentifyModule: RCTEventEmitter {
           print("socket resp : \(socketStats)")
           if let err = webErr, let errorMessage = err.errorMessages, errorMessage != "" { // error from backend
             print("error connecting to server: \(errorMessage)")
+            completion(false, errorMessage)
           } else { // in case no errors, continue
               if socketStats?.isConnected ==  true {
                   if apiResp.result ?? false {
@@ -145,13 +149,17 @@ class IdentifyModule: RCTEventEmitter {
 //                        appDelegate.window.rootViewController = navigationC
 //                        appDelegate.window.makeKeyAndVisible()
                         topController?.present(navigationC, animated: true) // best to use topController, so we can present SDK modally
+                        
+                        completion(true, nil)
                       }
                     }
                   } else if (socketStats?.isConnected == false) {
                       print("socket result false")
+                      completion(false, "socket result is false")
                   }
               } else {
                   print("socket not connected")
+                  completion(false, "socket not connected")
               }
           }
         }

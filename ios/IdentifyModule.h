@@ -25,7 +25,9 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(startIdentification:(NSString *)apiUrl
                   identId:(NSString *)identId
-                  language:(NSString *)language)
+                  language:(NSString *)language
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 {
   RCTLogInfo(@"Starting identification with URL: %@, ID: %@, Language: %@", apiUrl, identId, language);
   // Burada startIdentification fonksiyonunuzu implement edin
