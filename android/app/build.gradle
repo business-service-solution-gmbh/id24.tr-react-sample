@@ -9,7 +9,6 @@ apply plugin: "kotlin-android"
  */
 react {
 
-    // autolinkLibrariesWithApp()
 }
 
 /**
