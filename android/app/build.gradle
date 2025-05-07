@@ -9,8 +9,7 @@ apply plugin: "kotlin-android"
  */
 react {
 
-    autolinkLibrariesWithApp()
-    hermesEnabled = true
+    // autolinkLibrariesWithApp()
 }
 
 /**
@@ -72,5 +71,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0") //### add this line 
     implementation 'com.google.code.gson:gson:2.10.1' //### add this line 
     implementation project(path: ':design') //### add this line
-    implementation("com.facebook.react:hermes-android")
+
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
 }
